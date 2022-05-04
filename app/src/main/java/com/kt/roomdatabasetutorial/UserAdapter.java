@@ -3,6 +3,7 @@ package com.kt.roomdatabasetutorial;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,18 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
     //
     private List<User> mListUser;
+
+    private IClickItemUser iClickItemUser;
+    //interface cho sự kiện update
+    public interface IClickItemUser{
+        void updateUser(User user);
+    }
+    //update
+
+    public UserAdapter(IClickItemUser iClickItemUser) {
+        this.iClickItemUser = iClickItemUser;
+    }
+
     //
     public void setData(List<User> list){
         this.mListUser = list;
@@ -30,13 +43,21 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     //set dữ liệu lên
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        User user = mListUser.get(position);
+        final User user = mListUser.get(position);
         if (user == null){
             return;
         }
         //set dữ liệu lên giao diện
         holder.tvUsername.setText(user.getUsername());
         holder.tvAddress.setText(user.getAddress());
+
+        //bắt sự kiện update
+        holder.btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickItemUser.updateUser(user);
+            }
+        });
     }
 
     @Override
@@ -51,12 +72,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
 
         private TextView tvUsername;
         private TextView tvAddress;
+        private Button btnUpdate;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvAddress = itemView.findViewById(R.id.tv_address);
             tvUsername = itemView.findViewById(R.id.tv_username);
+            btnUpdate = itemView.findViewById(R.id.btn_update);
         }
     }
 }

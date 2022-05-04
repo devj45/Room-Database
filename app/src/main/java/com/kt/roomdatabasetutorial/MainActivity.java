@@ -1,10 +1,12 @@
 package com.kt.roomdatabasetutorial;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -29,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private UserAdapter userAdapter;
     private List<User> mListUser;
 
+    private int MY_REQUEST_CODE = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +40,12 @@ public class MainActivity extends AppCompatActivity {
         //
         initUi();
 
-        userAdapter = new UserAdapter();
+        userAdapter = new UserAdapter(new UserAdapter.IClickItemUser() {
+            @Override
+            public void updateUser(User user) {
+                clickUpdateUser(user);
+            }
+        });
         mListUser = new ArrayList<>();
         userAdapter.setData(mListUser);
 
@@ -51,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
                 addUser();
             }
         });
+        //
+        LoadData();
     }
 
     private void addUser() {
@@ -62,6 +73,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         User user = new User(strUsername,strAddress);
+        //kiểm tra nếu user đã tồn tại
+        if (isUserExist(user)){
+            Toast.makeText(this,"User exist",Toast.LENGTH_SHORT).show();
+            //return; tức cái phía sau nó không được thực hiện
+            return;
+        }
+
         //
         UserDatabase.getInstance(this).userDAO().insetUser(user);
         Toast.makeText(this,"add user succesfully",Toast.LENGTH_SHORT).show();
@@ -71,9 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         hideSoftKeyboard();
 
-        mListUser = UserDatabase.getInstance(this).userDAO().getListUser();
-        //set cho adapter
-        userAdapter.setData(mListUser);
+        LoadData();
     }
 
     private void initUi() {
@@ -92,6 +108,37 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (NullPointerException ex){
             ex.printStackTrace();
+        }
+    }
+
+    private void LoadData(){
+        mListUser = UserDatabase.getInstance(this).userDAO().getListUser();
+        //set cho adapter
+        userAdapter.setData(mListUser);
+    }
+
+    private boolean isUserExist(User user){
+        List<User> list = UserDatabase.getInstance(this).userDAO().checkUser(user.getUsername());
+        return list != null && !list.isEmpty();
+    }
+    //
+    private void clickUpdateUser(User user){
+        //
+        Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("object_user",user);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, MY_REQUEST_CODE);
+    }
+
+    //
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == MY_REQUEST_CODE && resultCode == Activity.RESULT_OK){
+            LoadData();
         }
     }
 }

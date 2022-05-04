@@ -4,10 +4,12 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 //Entity
 //tableName : đặt tên cho bảng
 @Entity(tableName = "user")
-public class User {
+public class User implements Serializable {
 
     //Khóa chính, tự động tăng
     @PrimaryKey(autoGenerate = true)

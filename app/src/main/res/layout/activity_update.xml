@@ -29,7 +29,7 @@
     </EditText>
 
     <Button
-        android:id="@+id/btn_adduser"
+        android:id="@+id/btn_update_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
@@ -39,10 +39,4 @@
         android:textColor="@color/white">
     </Button>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rev_user"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp">
-    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>
