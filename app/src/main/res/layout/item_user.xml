@@ -33,9 +33,18 @@
     <Button
         android:id="@+id/btn_update"
         android:layout_centerVertical="true"
+        android:layout_toStartOf="@id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="Update">
+    </Button>
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_centerVertical="true"
         android:layout_alignParentEnd="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Update">
+        android:text="Delete">
     </Button>
 </RelativeLayout>

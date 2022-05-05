@@ -20,6 +20,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     //interface cho sự kiện update
     public interface IClickItemUser{
         void updateUser(User user);
+        //
+        void deleteUser(User user);
     }
     //update
 
@@ -58,6 +60,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
                 iClickItemUser.updateUser(user);
             }
         });
+        //
+        holder.btnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iClickItemUser.deleteUser(user);
+            }
+        });
     }
 
     @Override
@@ -73,6 +82,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         private TextView tvUsername;
         private TextView tvAddress;
         private Button btnUpdate;
+        private Button btnDelete;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -80,6 +90,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             tvAddress = itemView.findViewById(R.id.tv_address);
             tvUsername = itemView.findViewById(R.id.tv_username);
             btnUpdate = itemView.findViewById(R.id.btn_update);
+            btnDelete = itemView.findViewById(R.id.btn_delete);
         }
     }
 }
