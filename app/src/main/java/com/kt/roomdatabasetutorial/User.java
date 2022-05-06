@@ -4,10 +4,12 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 //Entity
 //tableName : đặt tên cho bảng
 @Entity(tableName = "user")
-public class User {
+public class User implements Serializable {
 
     //Khóa chính, tự động tăng
     @PrimaryKey(autoGenerate = true)
@@ -16,10 +18,20 @@ public class User {
     //set lại tên thuộc tính : @ColumnInfo(name = "user_name")
     private String username;
     private String address;
+    private String year;
 
-    public User(String username, String address) {
+    public User(String username, String address, String year) {
         this.username = username;
         this.address = address;
+        this.year = year;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public int getId() {
