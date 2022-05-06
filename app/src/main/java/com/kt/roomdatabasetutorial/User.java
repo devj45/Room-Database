@@ -18,10 +18,20 @@ public class User implements Serializable {
     //set lại tên thuộc tính : @ColumnInfo(name = "user_name")
     private String username;
     private String address;
+    private String year;
 
-    public User(String username, String address) {
+    public User(String username, String address, String year) {
         this.username = username;
         this.address = address;
+        this.year = year;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public int getId() {

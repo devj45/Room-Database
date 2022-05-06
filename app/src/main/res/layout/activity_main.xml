@@ -28,6 +28,16 @@
         android:hint="Address">
     </EditText>
 
+    <EditText
+        android:id="@+id/edt_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginTop="14sp"
+        android:hint="Year">
+    </EditText>
+
     <Button
         android:id="@+id/btn_adduser"
         android:layout_width="wrap_content"

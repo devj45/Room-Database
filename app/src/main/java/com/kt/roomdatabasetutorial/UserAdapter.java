@@ -52,6 +52,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         //set dữ liệu lên giao diện
         holder.tvUsername.setText(user.getUsername());
         holder.tvAddress.setText(user.getAddress());
+        holder.tvYear.setText(user.getYear());
 
         //bắt sự kiện update
         holder.btnUpdate.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +84,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         private TextView tvAddress;
         private Button btnUpdate;
         private Button btnDelete;
+        private TextView tvYear;
 
         public UserViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,6 +93,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             tvUsername = itemView.findViewById(R.id.tv_username);
             btnUpdate = itemView.findViewById(R.id.btn_update);
             btnDelete = itemView.findViewById(R.id.btn_delete);
+            tvYear = itemView.findViewById(R.id.tv_year);
         }
     }
 }

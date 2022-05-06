@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvDeleleAll;
     private EditText edtSearch;
     private ImageButton img_btn_search;
+    private EditText edtYear;
 
     private UserAdapter userAdapter;
     private List<User> mListUser;
@@ -110,12 +111,13 @@ public class MainActivity extends AppCompatActivity {
     private void addUser() {
         String strUsername = edtUsername.getText().toString().trim();
         String strAddress = edtAddress.getText().toString().trim();
+        String strYear = edtYear.getText().toString().trim();
 
         if (TextUtils.isEmpty(strUsername) || TextUtils.isEmpty(strAddress)){
             return;
         }
 
-        User user = new User(strUsername,strAddress);
+        User user = new User(strUsername,strAddress,strYear);
         //kiểm tra nếu user đã tồn tại
         if (isUserExist(user)){
             Toast.makeText(this,"User exist",Toast.LENGTH_SHORT).show();
@@ -129,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
         edtUsername.setText("");
         edtAddress.setText("");
+        edtYear.setText("");
 
         hideSoftKeyboard();
 
@@ -143,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         tvDeleleAll = findViewById(R.id.tv_delete_all);
         edtSearch = findViewById(R.id.edt_search);
         img_btn_search = findViewById(R.id.img_btn_search);
+        edtYear = findViewById(R.id.edt_year);
 
     }
 
